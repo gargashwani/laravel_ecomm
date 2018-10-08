@@ -21,10 +21,6 @@ class AdminAuthenticated
         {   // redirect with flash session message
             return redirect('/home')->with('message','You are Not Allowed To Access!');
         }
-        elseif(Auth::user()->role->name = 'admin')
-        {   // redirect with flash session message
-            return redirect('/admin');
-        }
         return $next($request);
     }
 }

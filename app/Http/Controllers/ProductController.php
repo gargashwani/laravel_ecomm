@@ -14,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // get all products
+        $products = Product::all();
+        return view('admin.products.index')->with('products',$products);
     }
 
     /**

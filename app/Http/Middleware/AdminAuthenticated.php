@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 // use Illuminate\Support\Facades\Auth;
 use Auth;
+use Illuminate\Http\Request;
 
 class AdminAuthenticated
 {
@@ -17,7 +18,7 @@ class AdminAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role->name = 'customer')
+        if(Auth::user()->role->name == 'customer')
         {   // redirect with flash session message
             return redirect('/home')->with('message','You are Not Allowed To Access!');
         }

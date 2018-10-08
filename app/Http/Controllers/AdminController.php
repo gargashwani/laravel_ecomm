@@ -11,7 +11,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return "This is admin user";
-        // return view('admin.dashboard');
+        // return "This is admin user";
+        // dd($user);
+        return view('admin.dashboard');
     }
 }

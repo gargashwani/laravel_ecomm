@@ -15,6 +15,6 @@ class Role extends Model
     {
         // return $this->belongsToMany('App\Role', table_belongs_to ,'foreign_key', 'other_key');
         // return $this->belongsToMany('App\Role', 'role_user_table', 'user_id', 'role_id');
-        return $this->hasMany('App\Role');
+        return $this->hasMany('App\User');
     }
 }

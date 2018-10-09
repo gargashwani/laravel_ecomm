@@ -19,12 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['as'=>'admin.'], function(){
-    Route::get('/admin','AdminController@dashboard')->name('dashboard');
+Route::group(['as'=>'admin.','middleware'=>['auth','admin'],'prefix'=>'admin'], function(){
+    Route::get('/dashboard','AdminController@dashboard')->name('dashboard');
 
     // product resource controller methods
     // check php artisan r:l
     Route::resource('product', 'ProductController');
     Route::resource('category', 'CategoryController');
-
+    Route::resource('profile', 'ProfileController');
+    Route::post('remove', 'CategoryController@remove')->name('category.remove');
 });

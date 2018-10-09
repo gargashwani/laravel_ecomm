@@ -19,6 +19,13 @@
         "popper.js": "^1.12"
     },
     "dependencies": {
-        "feather-icons": "^4.7.3"
+        "@ckeditor/ckeditor5-build-classic": "^11.0.1",
+        "ajv": "^6.5.4",
+        "almond": "^0.3.3",
+        "feather-icons": "^4.7.3",
+        "imagemin": "^5.3.1",
+        "jquery-mousewheel": "^3.1.13",
+        "select2": "^4.0.6-rc.1",
+        "select2-bootstrap-css": "^1.4.6"
     }
 }

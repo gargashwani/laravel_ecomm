@@ -29,3 +29,4 @@ Route::group(['as'=>'admin.','middleware'=>['auth','admin'],'prefix'=>'admin'], 
     Route::resource('profile', 'ProfileController');
     Route::post('remove', 'CategoryController@remove')->name('category.remove');
 });
+

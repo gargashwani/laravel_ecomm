@@ -100,3 +100,4 @@ document.getElementById('delete-category-'+id).submit();
 }
 </script>
 @endsection
+

@@ -16,8 +16,8 @@ class Product extends Model
     	return $this->belongsToMany('App\Category','category_product');
     }
 
-    public function getRouteKeyName(){
-   	 return 'slug';
-	}
+    // public function getRouteKeyName(){
+   	//  return 'slug';
+	// }
 }
 

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Category;
 use Illuminate\Http\Request;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,6 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $categories = Category::paginate(3);
         return view('admin.categories.index', compact('categories'));
     }
@@ -32,6 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+
         $categories = Category::all();
         return view('admin.categories.create',compact('categories'));
     }
@@ -43,6 +47,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title'=>'required|min:5',
             'slug'=>'required|min:5|unique:categories'
@@ -70,7 +75,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return $category;
     }
     /**
      * Show the form for editing the specified resource.
@@ -80,7 +85,19 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         $categories = Category::where('id','!=', $category->id)->get();
+        // $category = Category::find($category);
+        // if (!$category) {
+        //     return redirect()->route('admin.categories.index')->withErrors([trans('errors.category_not_found')]);
+        // }
+        // else
+        // {
+        //     echo 'ok';
+        // }
+        // echo $category->id."<br/>";
+        //  dd($category);
+         $categories = Category::where('id','!=', $category)->get();
+        //  dd($categories);
+        // return "This is category edit page";
          return view('admin.categories.create',['categories' => $categories, 'category'=>$category]);
     }
     /**

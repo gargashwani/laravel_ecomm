@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// USE middleware here to check all routes in this group for authorization,
+// First check authorization for default auth:web
+// Second check if its for admin
 Route::group(['as'=>'admin.','middleware'=>['auth','admin'],'prefix'=>'admin'], function(){
     Route::get('/dashboard','AdminController@dashboard')->name('dashboard');
 

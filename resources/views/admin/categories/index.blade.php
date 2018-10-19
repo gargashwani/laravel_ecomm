@@ -1,8 +1,12 @@
 @extends('admin.app')
+
+{{--  breadcrumbs  --}}
 @section('breadcrumbs')
 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
 <li class="breadcrumb-item active" aria-current="page">Categories</li>
 @endsection
+{{--  breadcrumbs  ends --}}
+
 @section('content')
 <div class="row d-block">
   <div class="col-sm-12">
@@ -40,8 +44,10 @@
       <tr>
         <td>{{$category->id}}</td>
         <td>{{$category->title}}</td>
+
         {{--  do not interfare with html chars coming from db in description  --}}
         {{--  therefore {!!  !!} is used --}}
+
         <td>{!! $category->description !!}</td>
         <td>{{$category->slug}}</td>
         <td>
@@ -64,9 +70,12 @@
       </td>
       @else
       <td>{{$category->created_at}}</td>
-      <td><a class="btn btn-info btn-sm" href="{{route('admin.category.edit',$category->slug)}}">Edit</a> | <a id="trash-category-{{$category->id}}" class="btn btn-warning btn-sm" href="{{route('admin.category.remove',$category->slug)}}">Trash</a> | <a class="btn btn-danger btn-sm" href="javascript:;" onclick="confirmDelete('{{$category->id}}')">Delete</a>
-      <form id="delete-category-{{$category->id}}" action="{{ route('admin.category.destroy', $category->slug) }}" method="POST" style="display: none;">
-
+      <td><a class="btn btn-info btn-sm" href="{{route('admin.category.edit',$category->id)}}">Edit</a> | <a id="trash-category-{{$category->id}}" class="btn btn-warning btn-sm" href="{{route('admin.category.remove',$category->slug)}}">Trash</a> | <a class="btn btn-danger btn-sm" href="javascript:;" onclick="confirmDelete('{{$category->id}}')">Delete</a>
+      <form
+            id="delete-category-{{$category->id}}"
+            action="{{ route('admin.category.destroy', $category->slug) }}"
+            method="POST"
+            style="display: none;">
         @method('DELETE')
         @csrf
       </form>
@@ -86,7 +95,11 @@
 </div>
 <div class="row">
 <div class="col-md-12">
+
+    {{--  paginate links  --}}
 {{$categories->links()}}
+    {{--  paginate links  --}}
+
 </div>
 </div>
 @endsection

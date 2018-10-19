@@ -5,8 +5,13 @@
 	<li class="breadcrumb-item active" aria-current="page">Add/Edit Category</li>
 @endsection
 @section('content')
-<form action="@if(isset($category)) {{route('admin.category.update', $category)}} @else {{route('admin.category.store')}} @endif" method="post" accept-charset="utf-8">
-	@csrf
+{{--  two routes for add category and edit category depending upon the coming data from controller --}}
+<form action="@if(isset($category)) {{route('admin.category.update', $category)}}
+              @else {{route('admin.category.store')}} @endif"
+        method="post" accept-charset="utf-8">
+    @csrf
+
+    {{--  if we are updating the category, we have to use PUT method  --}}
 	@if(isset($category))
 		@method('PUT')
 	@endif
@@ -30,7 +35,9 @@
 			@endif
 		</div>
 		<div class="col-sm-12">
-			<label class="form-control-label">Title: </label>
+            <label class="form-control-label">Title: </label>
+            {{--  display category fields if this page is used for Edit the category  --}}
+            {{--  {{@$category->title}} - here @ makes this $category->title as not required  --}}
 			<input type="text" id="txturl" name="title" class="form-control " value="{{@$category->title}}">
 			<p class="small">{{config('app.url')}}<span id="url">{{@$category->slug}}</span></p>
 			<input type="hidden" name="slug" id="slug" value="{{@$category->slug}}">
@@ -44,15 +51,20 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		@php
+        {{--  here sort out the currently selected ids  --}}
+        {{--  if this category has any parent else ids = null --}}
+        {{--  isset is required, because count function can not run on null   --}}
+        @php
 			$ids = (isset($category->parents) && $category->parents->count() > 0 ) ? array_pluck($category->parents, 'id') : null
-		@endphp
+        @endphp
+        {{--  {{dd($ids)}}  --}}
 		<div class="col-sm-12">
 			<label class="form-control-label">Select Category: </label>
 			<select name="parent_id[]" id="parent_id" class="form-control" multiple>
 				@if(isset($categories))
 				<option value="0">Top Level</option>
-				@foreach($categories as $cat)
+                @foreach($categories as $cat)
+                {{--  if ids is not null and it have some id in its array, then populate it as selected  --}}
 				<option value="{{$cat->id}}" @if(!is_null($ids) && in_array($cat->id, $ids)) {{'selected'}} @endif>{{$cat->title}}</option>
 				@endforeach
 				@endif
@@ -63,7 +75,7 @@
 	<div class="form-group row">
 		<div class="col-sm-12">
 			@if(isset($category))
-			<input type="submit" name="submit" class="btn btn-primary" value="Edit Category" />
+			<input type="submit" name="submit" class="btn btn-primary" value="Update Category" />
 			@else
 			<input type="submit" name="submit" class="btn btn-primary" value="Add Category" />
 			@endif

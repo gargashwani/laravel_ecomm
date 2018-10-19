@@ -83,6 +83,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
+
+    //  here we are passing Category modal in the method using dependency injection
     public function edit(Category $category)
     {
         // $category = Category::find($category);

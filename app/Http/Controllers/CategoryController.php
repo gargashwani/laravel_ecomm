@@ -128,6 +128,12 @@ class CategoryController extends Controller
     }
     public function recoverCat($id)
     {
+        // Include trashed records when retrieving results...
+        // $orders = App\Order::withTrashed()->search('Star Trek')->get();
+
+        // Only include trashed records when retrieving results...
+        // $orders = App\Order::onlyTrashed()->search('Star Trek')->get();
+
         $category = Category::onlyTrashed()->findOrFail($id);
         if($category->restore())
             return back()->with('message','Category Successfully Restored!');
@@ -142,26 +148,30 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // this method deletes the cat from the database permanently
         if($category->childrens()->detach() && $category->forceDelete()){
             return back()->with('message','Category Successfully Deleted!');
         }else{
             return back()->with('message','Error Deleting Record');
         }
     }
+
     public function fetchCategories($id = 0){
         if($id == 0)
             return Category::all();
       $category =  Category::where('id', $id)->first();
       return $category->childrens;
     }
-        /**
-     * Remove the specified resource from storage.
+
+    /**
+     * Remove the specified resource to trash.
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function remove(Category $category)
     {
+        // soft delete category
         if($category->delete()){
             return back()->with('message','Category Successfully Trashed!');
         }else{

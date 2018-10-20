@@ -20,7 +20,7 @@
             <div class="dropdown-menu" aria-labelledby="productDropdown">
               <a class="dropdown-item" href="{{route('admin.product.create')}}">Add Product</a>
               <a class="dropdown-item" href="{{route('admin.product.index')}}">All Products</a>
-              {{-- <a class="dropdown-item" href="{{route('admin.product.trash')}}">Trashed Products</a> --}}
+              <a class="dropdown-item" href="{{route('admin.product.trash')}}">Trashed Products</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -31,7 +31,7 @@
             <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                  <a class="dropdown-item" href="{{route('admin.category.create')}}">Add Category</a>
               <a class="dropdown-item" href="{{route('admin.category.index')}}">All Categories</a>
-              {{-- <a class="dropdown-item" href="{{route('admin.category.trash')}}">Trashed Categories</a> --}}
+              <a class="dropdown-item" href="{{route('admin.category.trash')}}">Trashed Categories</a>
             </div>
 
           </li>

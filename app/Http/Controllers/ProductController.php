@@ -98,6 +98,7 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
+        // dd($request->extras);
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
        $extension = ".".$request->thumbnail->getClientOriginalExtension();

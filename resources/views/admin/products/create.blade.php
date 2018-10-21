@@ -6,13 +6,11 @@
 @endsection
 @section('content')
 <h2 class="modal-title">Add/Edit Products</h2>
-<form  action="@if(isset($product)) {{route('admin.product.update', $product)}}
-                @else {{route('admin.product.store')}} @endif"
-        method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form  action="@if(isset($product)) {{route('admin.product.update', $product)}} @else {{route('admin.product.store')}} @endif" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<div class="row">
 		@csrf
 		@if(isset($product))
-            @method('PUT')
+		@method('PUT')
 		@endif
 		<div class="col-lg-9">
 			<div class="form-group row">
@@ -80,18 +78,7 @@
 
 				</div>
 				<div class="card-body" id="extras">
-                    <div class="row align-items-center options">
-                        <div class="col-sm-4">
-                            <label class="form-control-label">Option <span class="count">1</span></label>
-                            <input type="text" name="extra[option][]" class="form-control" placeholder="size">
-                        </div>
-                        <div class="col-sm-8">
-                            <label class="form-control-label">Values </label>
-                            <input type="text" name="extra[values][]" class="form-control" placeholder="option 1 | option 2 | option 3">
-                            <label class="form-control-label">Addional Prices </label>
-                            <input type="text" name="extra[prices][]" class="form-control" placeholder="price 1 | price 2 | price 3">
-                        </div>
-                    </div>
+
 				</div>
 			</div>
 		</div>
@@ -138,19 +125,12 @@
 						<p type="text" class="form-control" name="featured" placeholder="0.00" aria-label="featured" aria-describedby="featured" >Featured Product</p>
 					</div>
 				</div>
-            </li>
-            {{--  Serializing To Arrays
-                To convert a model and its loaded relationships to an array,
-                you should use the toArray method. This method is recursive,
-                so all attributes and all relations (including the relations of relations)
-                will be converted to arrays:  --}}
-                {{--  array_pluck will get the ids of categories for this edited product  --}}
+			</li>
 			@php
 			$ids = (isset($product) && $product->categories->count() > 0 ) ? array_pluck($product->categories->toArray(), 'id') : null;
 			@endphp
 			<li class="list-group-item active"><h5>Select Categories</h5></li>
 			<li class="list-group-item ">
-                {{--  here we are fetching categories to attach within the create product page  --}}
 				<select name="category_id[]" id="select2" class="form-control" multiple>
 					@if($categories->count() > 0)
 					@foreach($categories as $category)
@@ -171,15 +151,15 @@
 @section('scripts')
 <script type="text/javascript">
 	$(function(){
-		ClassicEditor.create( document.querySelector( '#editor' ), {
-			toolbar: [ 'Heading', 'Link', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote','undo', 'redo' ],
-		})
-		.then( editor => {
-			console.log( editor );
-		} )
-		.catch( error => {
-			console.error( error );
-		} );
+			ClassicEditor.create( document.querySelector( '#editor' ), {
+		toolbar: [ 'Heading', 'Link', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote','undo', 'redo' ],
+	})
+.then( editor => {
+console.log( editor );
+} )
+.catch( error => {
+console.error( error );
+} );
 
 		$('#txturl').on('keyup', function(){
 			const pretty_url = slugify($(this).val());
@@ -189,46 +169,48 @@
 
 		$('#select2').select2({
 			placeholder: "Select multiple Categories",
-			allowClear: true
+		allowClear: true
 		});
 		$('#status').select2({
 			placeholder: "Select a status",
-			allowClear: true,
-			minimumResultsForSearch: Infinity
+		allowClear: true,
+		minimumResultsForSearch: Infinity
 		});
-		$('#thumbnail').on('change', function() {
-			var file = $(this).get(0).files;
+$('#thumbnail').on('change', function() {
+var file = $(this).get(0).files;
+
 			// vanilla javascript object FileReader
-			//https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-			var reader = new FileReader();
+            //https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+
+var reader = new FileReader();
 
 			// The readAsDataURL method is used to read the contents of the specified Blob or File.
 			// When the read operation is finished, the readyState becomes DONE, and the loadend is triggered.
 			// At that time, the result attribute contains  the data as a data:
 			// URL representing the file's data as a base64 encoded string.
-			reader.readAsDataURL(file[0]);
-			reader.addEventListener("load", function(e) {
-				var image = e.target.result;
-				$("#imgthumbnail").attr('src', image);
-			});
-		});
+reader.readAsDataURL(file[0]);
+reader.addEventListener("load", function(e) {
+var image = e.target.result;
+$("#imgthumbnail").attr('src', image);
+});
+});
+$('#btn-add').on('click', function(e){
 
-		$('#btn-add').on('click', function(e){
+		var count = $('.options').length+1;
+		$.get("{{route('admin.product.extras')}}").done(function(data){
 
-			var count = $('.options').length+1;
-			$.get("{{route('admin.product.extras')}}").done(function(data){
-				$('#extras').append(data);
-			})
+			$('#extras').append(data);
 		})
-		$('#btn-remove').on('click', function(e){
-			$('.options:last').remove();
-		})
-		$('#featured').on('change', function(){
-			if($(this).is(":checked"))
-				$(this).val(1)
-			else
-				$(this).val(0)
-		})
-	})
+})
+$('#btn-remove').on('click', function(e){
+	$('.options:last').remove();
+})
+$('#featured').on('change', function(){
+	if($(this).is(":checked"))
+		$(this).val(1)
+	else
+		$(this).val(0)
+})
+})
 </script>
 @endsection

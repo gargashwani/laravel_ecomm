@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,7 +16,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::with('role','profile')->paginate('3');
+        // dd($users);
+        return view('admin.users.index')->with(['users'=>$users]);
     }
 
     /**

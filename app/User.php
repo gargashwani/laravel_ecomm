@@ -1,12 +1,13 @@
 <?php
 namespace App;
 
+use App\Role;
+use App\Profile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use App\Role;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,9 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Role');
+    }
+
+    public function profile(){
+        return $this->hasOne('App\Profile');
     }
 }

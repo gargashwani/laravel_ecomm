@@ -98,17 +98,21 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-
-
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
        $extension = ".".$request->thumbnail->getClientOriginalExtension();
        $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
        $name = $name.$extension;
+
+        // if for any how, images not shown in frontend, run the below command in CLI
+        // By default Laravel puts files in the storage/app/public directory, which is not accessible from the outside web. So you have to create a symbolic link between that directory and your public one:
+        // storage/app/public -> public/storage
+        // You can do that by executing the
+        // php artisan storage:link
+        // https://laravel.com/docs/5.4/filesystem#the-public-disk
        $path = $request->thumbnail->storeAs('images', $name, 'public');
+        //    $path = $request->thumbnail->move(public_path('images'), $name);
      }
-    //  echo $path;
-    //  dd($request->all());
        $product = Product::create([
            'title'=>$request->title,
            'slug' => $request->slug,
@@ -190,7 +194,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
           if($product->categories()->detach() && $product->forceDelete()){
-            Storage::delete($product->thumbnail);
+            //   Storage::delete() is used to delete image from folder
+            //  disk('public') is used to specify that the path is public/storage
+            Storage::disk('public')->delete($product->thumbnail);
             return back()->with('message','Product Successfully Deleted!');
         }else{
             return back()->with('message','Error Deleting Product');

@@ -12,7 +12,7 @@
 	<div class="row">
 		@csrf
 		@if(isset($product))
-		@method('PUT')
+            @method('PUT')
 		@endif
 		<div class="col-lg-9">
 			<div class="form-group row">
@@ -138,7 +138,13 @@
 						<p type="text" class="form-control" name="featured" placeholder="0.00" aria-label="featured" aria-describedby="featured" >Featured Product</p>
 					</div>
 				</div>
-			</li>
+            </li>
+            {{--  Serializing To Arrays
+                To convert a model and its loaded relationships to an array,
+                you should use the toArray method. This method is recursive,
+                so all attributes and all relations (including the relations of relations)
+                will be converted to arrays:  --}}
+                {{--  array_pluck will get the ids of categories for this edited product  --}}
 			@php
 			$ids = (isset($product) && $product->categories->count() > 0 ) ? array_pluck($product->categories->toArray(), 'id') : null;
 			@endphp

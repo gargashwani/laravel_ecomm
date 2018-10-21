@@ -6,7 +6,9 @@
 @endsection
 @section('content')
 <h2 class="modal-title">Add/Edit Products</h2>
-<form  action="@if(isset($product)) {{route('admin.product.update', $product)}} @else {{route('admin.product.store')}} @endif" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form  action="@if(isset($product)) {{route('admin.product.update', $product)}}
+                @else {{route('admin.product.store')}} @endif"
+        method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<div class="row">
 		@csrf
 		@if(isset($product))
@@ -81,13 +83,13 @@
                     <div class="row align-items-center options">
                         <div class="col-sm-4">
                             <label class="form-control-label">Option <span class="count">1</span></label>
-                            <input type="text" name="extra['option'][]" class="form-control" placeholder="size">
+                            <input type="text" name="extra[option][]" class="form-control" placeholder="size">
                         </div>
                         <div class="col-sm-8">
                             <label class="form-control-label">Values </label>
-                            <input type="text" name="extra['values'][]" class="form-control" placeholder="option 1 | option 2 | option 3">
+                            <input type="text" name="extra[values][]" class="form-control" placeholder="option 1 | option 2 | option 3">
                             <label class="form-control-label">Addional Prices </label>
-                            <input type="text" name="extra['prices'][]" class="form-control" placeholder="price 1 | price 2 | price 3">
+                            <input type="text" name="extra[prices][]" class="form-control" placeholder="price 1 | price 2 | price 3">
                         </div>
                     </div>
 				</div>
@@ -142,6 +144,7 @@
 			@endphp
 			<li class="list-group-item active"><h5>Select Categories</h5></li>
 			<li class="list-group-item ">
+                {{--  here we are fetching categories to attach within the create product page  --}}
 				<select name="category_id[]" id="select2" class="form-control" multiple>
 					@if($categories->count() > 0)
 					@foreach($categories as $category)
@@ -203,7 +206,7 @@
 				$("#imgthumbnail").attr('src', image);
 			});
 		});
-		
+
 		$('#btn-add').on('click', function(e){
 
 			var count = $('.options').length+1;

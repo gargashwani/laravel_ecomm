@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Cart;
 use Session;
+
+
+
 class ProductController extends Controller
 {
     /**
@@ -95,6 +98,8 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
+
+
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
        $extension = ".".$request->thumbnail->getClientOriginalExtension();
@@ -102,6 +107,8 @@ class ProductController extends Controller
        $name = $name.$extension;
        $path = $request->thumbnail->storeAs('images', $name, 'public');
      }
+    //  echo $path;
+    //  dd($request->all());
        $product = Product::create([
            'title'=>$request->title,
            'slug' => $request->slug,

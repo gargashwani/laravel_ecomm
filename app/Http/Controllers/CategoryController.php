@@ -96,7 +96,10 @@ class CategoryController extends Controller
         //     echo 'ok';
         // }
         // echo $category->id."<br/>";
-        //  dd($category);
+
+        // here we are getting all categories list from the database,
+        // but we don't want to add the current edited category in that list
+        // therefore exclude current category, which is current modal object
          $categories = Category::where('id','!=', $category)->get();
         //  dd($categories);
         // return "This is category edit page";
@@ -111,6 +114,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'title'=>'required|min:5',
+            'slug'=>'required|min:5|unique:categories'
+        ]);
+
         $category->title = $request->title;
         $category->description = $request->description;
         $category->slug = $request->slug;

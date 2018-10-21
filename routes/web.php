@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,22 +9,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-
 Route::group(['as'=>'products.', 'prefix'=>'products'], function(){
 	Route::get('/', 'ProductController@show')->name('all');
 	Route::get('/{product}', 'ProductController@single')->name('single');
 	Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('addToCart');
 });
-
 Route::group(['as'=>'cart.', 'prefix'=>'cart'], function(){
 	Route::get('/', 'ProductController@cart')->name('all');
 	Route::post('/remove/{product}', 'ProductController@removeProduct')->name('remove');
@@ -35,7 +28,9 @@ Route::group(['as'=>'cart.', 'prefix'=>'cart'], function(){
 // USE middleware here to check all routes in this group for authorization,
 // First check authorization for default auth:web
 // Second check if its for admin
-Route::group(['as'=>'admin.','middleware'=>['auth','admin'],'prefix'=>'admin'], function(){
+
+Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin'], function(){
+
 	Route::get('/', 'AdminController@dashboard');
 	Route::get('category/{category}/remove','CategoryController@remove')->name('category.remove');
 	Route::get('category/trash', 'CategoryController@trash')->name('category.trash');
@@ -54,13 +49,17 @@ Route::group(['as'=>'admin.','middleware'=>['auth','admin'],'prefix'=>'admin'], 
 	Route::get('profile/states/{id?}', 'ProfileController@getStates')->name('profile.states');
 	Route::get('profile/cities/{id?}', 'ProfileController@getCities')->name('profile.cities');
 
-	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+    Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 
     // product resource controller methods
     // check php artisan r:l
     // keep resource routes always below
-    Route::resource('product', 'ProductController');
-    Route::resource('category', 'CategoryController');
-    Route::resource('profile', 'ProfileController');
-});
 
+    // Route::get('product', 'ProductController@index')->name('product.index');
+    // Route::get('product/create', 'ProductController@create')->name('product.create');
+    // Route::post('product', 'ProductController@store')->name('product.store');
+
+	Route::resource('product', 'ProductController');
+	Route::resource('category', 'CategoryController');
+	Route::resource('profile','ProfileController');
+});

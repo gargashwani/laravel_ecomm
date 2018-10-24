@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateProductsTable extends Migration
+class AddStatusFieldInUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            // default 0 = Not featured
-            $table->boolean('featured')->default(0)->after('options');
+        Schema::table('users', function (Blueprint $table) {
+            // status = 0 = inactive, 1 = active
+            $table->unsignedInteger('status')->default(1)->comment('0 = inactive, 1 = active');
         });
     }
 
@@ -26,8 +26,8 @@ class UpdateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('featured');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

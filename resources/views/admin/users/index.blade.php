@@ -47,7 +47,7 @@
                 <td>{{@$user->profile->slug}}</td>
                 <td>{{$user->role->name}}</td>
                 <td>{{@$user->profile->address}}
-                    {{-- ,{{@$user->getCountry()}},{{@$user->getState()}}, {{@$user->getCity()}} --}}
+                    ,{{@$user->getCountry()}},{{@$user->getState()}}, {{@$user->getCity()}}
                 </td>
                 <td><img src="{{asset('storage/'.$user->profile->thumbnail)}}" alt="{{@$user->profile->name}}" class="img-responsive"
                         height="50" /></td>

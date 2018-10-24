@@ -22,6 +22,10 @@ class CreateProductsTable extends Migration
             $table->string('discount_price');
             $table->string('thumbnail');
             $table->string('options')->nullable();
+            // default 0 = Not featured
+            $table->boolean('featured')->default(0);
+            $table->boolean('status')->default(0);
+            $table->string('slug')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

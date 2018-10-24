@@ -45,7 +45,8 @@ Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin']
 	Route::get('profile/{profile}/remove','ProfileController@remove')->name('profile.remove');
 	Route::get('profile/trash', 'ProfileController@trash')->name('profile.trash');
 	Route::get('profile/recover/{id}', 'ProfileController@recoverProduct')->name('profile.recover');
-	Route::view('profile/roles', 'admin.partials.extras')->name('profile.extras');
+    Route::view('profile/roles', 'admin.partials.extras')->name('profile.extras');
+
 	Route::get('profile/states/{id?}', 'ProfileController@getStates')->name('profile.states');
 	Route::get('profile/cities/{id?}', 'ProfileController@getCities')->name('profile.cities');
 

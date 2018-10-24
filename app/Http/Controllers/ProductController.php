@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Category;
 use App\Http\Requests\StoreProduct;
 use App\Product;

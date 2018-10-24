@@ -51,7 +51,7 @@ class ProductController extends Controller
      */
     public function show()
     {
-       //dd(Session::get('cart'));
+    //    dd(Session::get('cart'));
        $categories = Category::with('childrens')->get();
        $products = Product::with('categories')->paginate(3);
        return view('products.all', compact('categories','products'));

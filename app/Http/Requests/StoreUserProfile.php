@@ -16,17 +16,19 @@ class StoreUserProfile extends FormRequest
     {
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
+
     public function rules()
     {
         return [
            'name' => 'required',
            'slug'=>'required|unique:profiles,slug,'.$this->slug.',slug',
-           'email'=> 'required|email|unique:users',
+           'email'=> 'required|email|unique:users,slug,'.$this->slug.',slug',
            'password' => 'required|same:password_confirm',
            'password_confirm'=> 'required',
            'status' => 'required',

@@ -1,14 +1,127 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
+@import '~select2/dist/css/select2.css';
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+:root {
+  --jumbotron-padding-y: 1rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+/* Fixed sidenav, full height */
+
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    padding-left: 20px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+svg.feather.feather-arrow-down-circle,svg.feather.feather-arrow-right-circle {
+    padding-top: 10px;
+}
+
+
+/* start cart page css */
+.param {
+    margin-bottom: 7px;
+    line-height: 1.4;
+}
+.param-inline dt {
+    display: inline-block;
+}
+.param dt {
+    margin: 0;
+    margin-right: 7px;
+    font-weight: 600;
+}
+.param-inline dd {
+    vertical-align: baseline;
+    display: inline-block;
+}
+
+.param dd {
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.shopping-cart-wrap .price {
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+    display: block;
+}
+span.price {
+    font-style: normal;
+}
+
+.media img {
+    margin-right: 1rem;
+}
+.img-sm {
+    width: 90px;
+    max-height: 75px;
+    object-fit: cover;
+}
+/* ends cart page css */

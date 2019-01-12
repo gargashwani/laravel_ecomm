@@ -22,6 +22,11 @@ class Profile extends Model
     public function users(){
         return $this->belongsToMany('App\User')->withTrashed();
     }
+    
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // User has one country
     public function country(){

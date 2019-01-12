@@ -15,7 +15,8 @@ class AdminUser extends Seeder
      */
     public function run()
     {
-        // here we will create three user roles
+        // here we will create two user roles
+        // & one user of role admin
         $role = Role::create([
             'name' => 'customer',
             'description' => 'Customer Role'

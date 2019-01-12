@@ -15,7 +15,7 @@
             <p class="card-text">{!! $product->description  !!}</p>
             <div class="d-block justify-content-between align-items-center">
               <div class="btn-group">
-                <a type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</a>
+                <a type="button" href="{{route('products.addToCart', $product)}}" class="btn btn-sm btn-outline-secondary">Add to Cart</a>
               </div>
               <p class="text-muted">9 mins</p>
             </div>

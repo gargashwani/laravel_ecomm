@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Category;
 use Illuminate\Http\Request;
-
 class CategoryController extends Controller
 {
     /**
@@ -14,7 +11,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
         $categories = Category::paginate(3);
         return view('admin.categories.index', compact('categories'));
     }
@@ -35,7 +31,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
         $categories = Category::all();
         return view('admin.categories.create',compact('categories'));
     }
@@ -47,23 +42,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'title'=>'required|min:5',
             'slug'=>'required|min:5|unique:categories'
         ]);
         // this will add only given cols in the database table
         $categories = Category::create($request->only('title','description','slug'));
-
         // Many To Many Relationships
         // Attaching / Detaching
         // Eloquent also provides a few additional helper methods to make working with related models more convenient.
         // For example, let's imagine a user can have many roles and a role can have many users.
         // To attach a role to a user by inserting a record in the intermediate table that joins the models,
         // use the attach method:
-
         // dd($request->parent_id[0]);
-
         $categories->parents()->attach($request->parent_id,['created_at'=>now(), 'updated_at'=>now()]);
         return back()->with('message','Category Added Successfully!');
     }
@@ -83,7 +74,6 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-
     //  here we are passing Category modal in the method using dependency injection
     public function edit(Category $category)
     {
@@ -96,7 +86,6 @@ class CategoryController extends Controller
         //     echo 'ok';
         // }
         // echo $category->id."<br/>";
-
         // here we are getting all categories list from the database,
         // but we don't want to add the current edited category in that list
         // therefore exclude current category, which is current modal object
@@ -118,7 +107,6 @@ class CategoryController extends Controller
             'title'=>'required|min:5',
             'slug'=>'required|min:5|unique:categories'
         ]);
-
         $category->title = $request->title;
         $category->description = $request->description;
         $category->slug = $request->slug;
@@ -138,10 +126,8 @@ class CategoryController extends Controller
     {
         // Include trashed records when retrieving results...
         // $orders = App\Order::withTrashed()->search('Star Trek')->get();
-
         // Only include trashed records when retrieving results...
         // $orders = App\Order::onlyTrashed()->search('Star Trek')->get();
-
         $category = Category::onlyTrashed()->findOrFail($id);
         if($category->restore())
             return back()->with('message','Category Successfully Restored!');
@@ -163,14 +149,12 @@ class CategoryController extends Controller
             return back()->with('message','Error Deleting Record');
         }
     }
-
     public function fetchCategories($id = 0){
         if($id == 0)
             return Category::all();
       $category =  Category::where('id', $id)->first();
       return $category->childrens;
     }
-
     /**
      * Remove the specified resource to trash.
      *

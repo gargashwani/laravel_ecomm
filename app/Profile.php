@@ -20,7 +20,7 @@ class Profile extends Model
     }
 
     public function users(){
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withTrashed();
     }
 
     // User has one country

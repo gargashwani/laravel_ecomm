@@ -195,13 +195,15 @@
             var id = $('#countries').select2('data')[0].id;
             $('#states').val(null);
             $('#states option').remove();
+
+            // Ref: https://select2.org/programmatic-control/add-select-clear-items
             // Fetch the preselected item, and add to the control
             var studentSelect = $('#states');
             $.ajax({
                 type: 'GET',
                 url: "{{route('admin.profile.states')}}/" + id
             }).then(function (data) {
-                console.log(data.length);
+                // console.log(data);
                 // create the option and append to Select2
                 for (i = 0; i < data.length; i++) {
                     var item = data[i]
@@ -223,6 +225,7 @@
                 type: 'GET',
                 url: "{{route('admin.profile.cities')}}/" + id
             }).then(function (data) {
+                // console.log(data);
                 // create the option and append to Select2
                 for (i = 0; i < data.length; i++) {
                     var item = data[i]

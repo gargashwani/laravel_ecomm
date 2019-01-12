@@ -55,7 +55,7 @@
         {{--  if this category has any parent else ids = null --}}
         {{--  isset is required, because count function can not run on null   --}}
         @php
-			$ids = (isset($category->parents) && $category->parents->count() > 0 ) ? array_pluck($category->parents, 'id') : null
+			$ids = (isset($category->childrens) && $category->childrens->count() > 0 ) ? array_pluck($category->childrens, 'id') : null
         @endphp
         {{--  {{dd($ids)}}  --}}
 		<div class="col-sm-12">
@@ -95,6 +95,8 @@ $(function(){
 	}).catch( error => {
 		console.error( error );
 	});
+
+    // txturl slug
 	$('#txturl').on('keyup', function(){
 		var url = slugify($(this).val());
 		$('#url').html(url);

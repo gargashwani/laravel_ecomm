@@ -10,7 +10,8 @@
               <p class="card-text">{!! substr($product->description,0, 30 ) !!}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{{route('products.single', $product)}}">View Product</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary"
+                  href="{{route('products.single', $product)}}">View Product</a>
                   <a type="button" href="{{route('products.addToCart', $product)}}" class="btn btn-sm btn-outline-secondary">Add to Cart</a>
                 </div>
                 <small class="text-muted">9 mins</small>

@@ -8,7 +8,8 @@ use App\CategoryParent;
 
 class Category extends Model
 {
-	 use SoftDeletes;
+     use SoftDeletes;
+    //because all the fields are guarded by default, so we are making them free from guard
      protected $guarded = [];
      protected $dates = ['deleted_at'];
 
@@ -18,7 +19,13 @@ class Category extends Model
     }
 
     //  one cat can have many child categories
+    // belongsToMany Syntax:
+    //  $this->belongsToMany('Current class Model', Pivot_table, fk, pk);
     public function childrens(){
+        // here parent_id is fk for childrens
+// category_id is primary key for childres,
+// when we get the children using this Category Model,
+// this method will work
         return $this->belongsToMany(Category::class,'category_parent','parent_id','category_id');
     }
 

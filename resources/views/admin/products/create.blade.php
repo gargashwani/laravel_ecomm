@@ -10,7 +10,7 @@
 	<div class="row">
 		@csrf
 		@if(isset($product))
-		@method('PUT')
+            @method('PUT')
 		@endif
 		<div class="col-lg-9">
 			<div class="form-group row">
@@ -176,41 +176,44 @@ console.error( error );
 		allowClear: true,
 		minimumResultsForSearch: Infinity
 		});
-$('#thumbnail').on('change', function() {
-var file = $(this).get(0).files;
+    $('#thumbnail').on('change', function() {
+        var file = $(this).get(0).files;
 
-			// vanilla javascript object FileReader
-            //https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+        // vanilla javascript object FileReader
+        //https://developer.mozilla.org/en-US/docs/Web/API/FileReader
 
-var reader = new FileReader();
+        var reader = new FileReader();
 
-			// The readAsDataURL method is used to read the contents of the specified Blob or File.
-			// When the read operation is finished, the readyState becomes DONE, and the loadend is triggered.
-			// At that time, the result attribute contains  the data as a data:
-			// URL representing the file's data as a base64 encoded string.
-reader.readAsDataURL(file[0]);
-reader.addEventListener("load", function(e) {
-var image = e.target.result;
-$("#imgthumbnail").attr('src', image);
-});
-});
-$('#btn-add').on('click', function(e){
+        // The readAsDataURL method is used to read the contents of the specified Blob or File.
+        // When the read operation is finished, the readyState becomes DONE, and the loadend is triggered.
+        // At that time, the result attribute contains  the data as a data:
+        // URL representing the file's data as a base64 encoded string.
+        reader.readAsDataURL(file[0]);
+        reader.addEventListener("load", function(e) {
+            var image = e.target.result;
+            $("#imgthumbnail").attr('src', image);
+        });
+    });
 
-		var count = $('.options').length+1;
-		$.get("{{route('admin.product.extras')}}").done(function(data){
+    $('#btn-add').on('click', function(e){
 
-			$('#extras').append(data);
-		})
-})
-$('#btn-remove').on('click', function(e){
-	$('.options:last').remove();
-})
-$('#featured').on('change', function(){
-	if($(this).is(":checked"))
-		$(this).val(1)
-	else
-		$(this).val(0)
-})
+            var count = $('.options').length+1;
+            $.get("{{route('admin.product.extras')}}").done(function(data){
+
+                $('#extras').append(data);
+            })
+    })
+
+    $('#btn-remove').on('click', function(e){
+        $('.options:last').remove();
+    })
+
+    $('#featured').on('change', function(){
+        if($(this).is(":checked"))
+            $(this).val(1)
+        else
+            $(this).val(0)
+    })
 })
 </script>
 @endsection

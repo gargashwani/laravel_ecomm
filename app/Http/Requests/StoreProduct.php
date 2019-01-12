@@ -14,6 +14,7 @@ class StoreProduct extends FormRequest
      */
     public function authorize()
     {
+        // make it true
         return true;
     }
     /**

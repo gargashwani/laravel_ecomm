@@ -2,9 +2,11 @@
 namespace App;
 class Cart
 {
+    // this model is used for cart session
     private $contents;
     private $totalQty;
     private $totalPrice;
+
     public function __construct($oldCart){
     	if($oldCart){
     		$this->contents = $oldCart->contents;
@@ -12,29 +14,36 @@ class Cart
     		$this->totalPrice = $oldCart->totalPrice;
     	}
     }
+
     public function addProduct($product, $qty){
     	$products = ['qty' => 0, 'price' => $product->price, 'product' => $product];
     	if($this->contents){
+            // check if product is already added in the cart
     		if(array_key_exists($product->slug, $this->contents)){
+                // then move this product in the old cart contents
     			$products = $this->contents[$product->slug];
     		}
-    	}
+        }
+
     	$products['qty']+=$qty;
     	$products['price'] = $product->price * $products['qty'];
     	$this->contents[$product->slug] = $products;
     	$this->totalQty+=$qty;
     	$this->totalPrice += $product->price;
     }
+
     public function removeProduct($product){
         if($this->contents){
             if(array_key_exists($product->slug, $this->contents)){
                 $rProduct = $this->contents[$product->slug];
                 $this->totalQty -= $rProduct['qty'];
                 $this->totalPrice -= $rProduct['price'];
+                // The array_forget function removes a given key / value pair from a deeply nested array using "dot" notation:
                 array_forget($this->contents, $product->slug);
             }
         }
     }
+
     public function updateProduct($product, $qty){
         if($this->contents){
             if(array_key_exists($product->slug, $this->contents)){

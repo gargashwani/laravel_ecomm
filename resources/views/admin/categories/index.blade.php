@@ -106,7 +106,7 @@
 <div class="col-md-12">
 
     {{--  paginate links  --}}
-{{$categories->links()}}
+        {{$categories->links()}}
     {{--  paginate links  --}}
 
 </div>

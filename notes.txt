@@ -1,0 +1,6 @@
+email and slug is unique this project.
+email is for users
+slug is for products
+
+admin middleware registered in the app/http/kernel.php file
+// admin middleware registered

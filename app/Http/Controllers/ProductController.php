@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('categories')->paginate(3);
+        // dd($products);
         return view('admin.products.index', compact('products'));
     }
 /**
@@ -59,23 +60,31 @@ class ProductController extends Controller
     }
 
     public function single(Product $product){
+        // dd($product);
       return view('products.single', compact('product'));
     }
     public function addToCart(Product $product, Request $request){
+        // here we are checking if cart session is creating previously by this function
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $qty = $request->qty ? $request->qty : 1;
         $cart = new Cart($oldCart);
         $cart->addProduct($product, $qty);
+        // here are creating a session with name cart and putting the whole cart in that session
         Session::put('cart', $cart);
         return back()->with('message', "Product $product->title has been successfully added to Cart");
     }
+
     public function cart(){
+
+    //   dd(Session::get('cart'));
+
       if(!Session::has('cart')){
         return view('products.cart');
       }
       $cart = Session::get('cart');
       return view('products.cart', compact('cart'));
     }
+
    public function removeProduct(Product $product){
       $oldCart = Session::has('cart') ? Session::get('cart') : null;
       $cart = new Cart($oldCart);
@@ -83,6 +92,7 @@ class ProductController extends Controller
       Session::put('cart', $cart);
       return back()->with('message', "Product $product->title has been successfully removed From the Cart");
    }
+
     public function updateProduct(Product $product, Request $request){
 
       $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -103,7 +113,10 @@ class ProductController extends Controller
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
        $extension = ".".$request->thumbnail->getClientOriginalExtension();
+        // basename(para1, para2), this function removes the para2 value from the para1
+        // so, here we are removing the extension form the file name and adding the time stamp to it.
        $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
+        // and then here we again adding extension after adding timestamp
        $name = $name.$extension;
 
         // if for any how, images not shown in frontend, run the below command in CLI
@@ -112,6 +125,9 @@ class ProductController extends Controller
         // You can do that by executing the
         // php artisan storage:link
         // https://laravel.com/docs/5.4/filesystem#the-public-disk
+
+        // to move the file, in any folder or location
+        // Ref: https://laravel.com/docs/5.7/requests#storing-uploaded-files
        $path = $request->thumbnail->storeAs('images', $name, 'public');
         //    $path = $request->thumbnail->move(public_path('images'), $name);
      }
